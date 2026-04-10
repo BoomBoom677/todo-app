@@ -287,28 +287,37 @@ $taches = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </div>
 
 <script>
-    function verifierFormulaire() {
-        const titre = document.getElementById("titre").value.trim();
-        if (titre === "") {
-            alert("Le titre ne doit pas être vide.");
-            return false;
+function verifierFormulaire() {
+    const titre = document.getElementById("titre").value.trim();
+    const date = document.getElementById("date_limite").value;
+
+    if (titre === "") {
+        alert("Le titre ne doit pas être vide.");
+        return false;
+    }
+
+    if (date === "") {
+        alert("La date limite est obligatoire.");
+        return false;
+    }
+
+    return true;
+}
+
+function filtrerTaches() {
+    const filtre = document.getElementById("filtreStatut").value;
+    const taches = document.querySelectorAll(".task");
+
+    taches.forEach(tache => {
+        const statut = tache.getAttribute("data-statut");
+
+        if (filtre === "toutes" || statut === filtre) {
+            tache.style.display = "block";
+        } else {
+            tache.style.display = "none";
         }
-        return true;
-    }
-
-    function filtrerTaches() {
-        const filtre = document.getElementById("filtreStatut").value;
-        const taches = document.querySelectorAll(".task");
-
-        taches.forEach(tache => {
-            const statut = tache.getAttribute("data-statut");
-            if (filtre === "toutes" || statut === filtre) {
-                tache.style.display = "block";
-            } else {
-                tache.style.display = "none";
-            }
-        });
-    }
+    });
+}
 </script>
 </body>
 </html>
