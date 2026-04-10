@@ -20,194 +20,82 @@ $taches = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo App</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #eef2ff, #f8fafc);
-            color: #1e293b;
-            min-height: 100vh;
-            padding: 30px 15px;
-        }
+body {
+    font-family: Arial;
+    background: linear-gradient(135deg, #eef2ff, #f8fafc);
+    padding: 30px;
+}
 
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-        }
+.container {
+    max-width: 1000px;
+    margin: auto;
+}
 
-        .title {
-            text-align: center;
-            margin-bottom: 30px;
-        }
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
 
-        .title h1 {
-            font-size: 2.4rem;
-            color: #0f172a;
-            margin-bottom: 8px;
-        }
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 20px;
+}
 
-        .title p {
-            color: #475569;
-            font-size: 1rem;
-        }
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
 
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr 1.4fr;
-            gap: 24px;
-        }
+input, textarea, select, button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
 
-        .card {
-            background: #ffffff;
-            border-radius: 18px;
-            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
-            padding: 22px;
-        }
+button {
+    background: #4f46e5;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
 
-        .card h2 {
-            font-size: 1.2rem;
-            margin-bottom: 18px;
-            color: #0f172a;
-        }
+button:hover {
+    background: #4338ca;
+}
 
-        form label {
-            display: block;
-            margin-bottom: 6px;
-            font-size: 0.92rem;
-            font-weight: bold;
-            color: #334155;
-        }
+.task {
+    background: #f8fafc;
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
 
-        input, textarea, select, button {
-            width: 100%;
-            border: 1px solid #cbd5e1;
-            border-radius: 12px;
-            padding: 12px;
-            font-size: 0.95rem;
-            margin-bottom: 14px;
-        }
+.task strong {
+    display: block;
+}
 
-        input:focus, textarea:focus, select:focus {
-            outline: none;
-            border-color: #6366f1;
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
-        }
+.badge {
+    padding: 4px 8px;
+    border-radius: 10px;
+    font-size: 12px;
+    color: white;
+}
 
-        textarea {
-            min-height: 95px;
-            resize: vertical;
-        }
+.a_faire { background: red; }
+.en_cours { background: orange; }
+.termine { background: green; }
 
-        button {
-            background: #4f46e5;
-            color: white;
-            border: none;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        button:hover {
-            background: #4338ca;
-            transform: translateY(-1px);
-        }
-
-        .topbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 18px;
-            flex-wrap: wrap;
-        }
-
-        .topbar select {
-            max-width: 220px;
-            margin-bottom: 0;
-        }
-
-        .task-list {
-            display: grid;
-            gap: 14px;
-        }
-
-        .task {
-            border: 1px solid #e2e8f0;
-            border-radius: 16px;
-            padding: 16px;
-            background: #f8fafc;
-            transition: 0.2s;
-        }
-
-        .task:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
-        }
-
-        .task-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-
-        .task-title {
-            font-size: 1.05rem;
-            font-weight: bold;
-            color: #0f172a;
-        }
-
-        .badge {
-            padding: 6px 10px;
-            border-radius: 999px;
-            font-size: 0.78rem;
-            font-weight: bold;
-            white-space: nowrap;
-        }
-
-        .a_faire { background: #fee2e2; color: #b91c1c; }
-        .en_cours { background: #fef3c7; color: #b45309; }
-        .termine { background: #dcfce7; color: #15803d; }
-
-        .priority {
-            display: inline-block;
-            margin-top: 8px;
-            margin-right: 8px;
-            padding: 5px 10px;
-            border-radius: 999px;
-            font-size: 0.78rem;
-            background: #e2e8f0;
-            color: #334155;
-        }
-
-        .task p {
-            color: #475569;
-            margin: 8px 0 10px;
-            line-height: 1.5;
-        }
-
-        .meta {
-            font-size: 0.85rem;
-            color: #64748b;
-            margin-top: 10px;
-        }
-
-        .empty {
-            text-align: center;
-            padding: 25px;
-            color: #64748b;
-            border: 2px dashed #cbd5e1;
-            border-radius: 14px;
-            background: #f8fafc;
-        }
-
-        @media (max-width: 900px) {
-            .grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+@media (max-width: 800px) {
+    .grid { grid-template-columns: 1fr; }
+}
+</style>
 </head>
 <body>
 <div class="container">
