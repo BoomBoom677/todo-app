@@ -13,8 +13,8 @@ CREATE TABLE IF NOT EXISTS taches (
 
 INSERT INTO taches (titre, description, statut, priorite, date_limite)
 VALUES
-('Faire un barbec', 'Acheter des merguez et ne pas oublier le charbon', 'a_faire', 'haute', '2026-04-12'),
-('Finir le mini projet', 'Créer la base de données et l’interface web', 'en_cours', 'haute', '2026-04-15'),
+('Faire un barbec', 'Acheter des merguez', 'a_faire', 'haute', '2026-04-12'),
+('Finir le mini projet', 'Créer la base de données', 'en_cours', 'haute', '2026-04-15'),
 ('Lire un livre', 'Apprendre à lire', 'termine', 'moyenne', '2026-04-09');
 
 UPDATE taches
